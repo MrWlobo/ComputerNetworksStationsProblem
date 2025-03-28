@@ -3,10 +3,13 @@ import requests
 import re
 
 from exercise import Exercise
+from commands import Commands
 
 url = "http://sieci.kis.agh.edu.pl/zasoby.html"
 response = requests.get(url)
 soup = BeautifulSoup(response.text, "html.parser")
+
+exercises_file = "exercises.txt"
 
 pattern = r"\b\d{3}\b"
 
@@ -49,13 +52,33 @@ for heading in soup.find_all("table", class_="texttable"):
 all_exercises.sort(key=lambda x: x.number)
 
 # Get chosen exercises
-with open("exercises.txt", "r") as f:
+with open(exercises_file, "r") as f:
     chosen_exercises = [number.strip() for number in f.readlines()]
 
-available_stations = input("Podaj dostępne stanowiska: ")
-available_stations_list = available_stations.split(" ")
+# Main loop
+run = True
+while run:
 
-# Print out valid exercises
-for exercise in all_exercises:
-    if exercise.number in chosen_exercises and exercise.station_match(available_stations_list):
-        print(exercise)
+    command = input("Switch# ").split(" ")
+
+    if command[0] == "show":
+        available_stations_list = command[1:]
+        Commands.show_command(all_exercises, chosen_exercises, available_stations_list)
+
+    elif command[0] == "no" and command[1] == "show":
+        available_stations_list = command[2:]
+        Commands.no_show_command(all_exercises, chosen_exercises, available_stations_list)
+
+    elif command[0] == "add":
+        exercises_to_add = command[1:]
+        Commands.add_command(exercises_file, exercises_to_add)
+
+    elif command[0] == "no" and command[1] == "add":
+        exercises_to_remove = command[2:]
+        Commands.no_add_command(exercises_file, exercises_to_remove)
+
+    elif command[0] == "shutdown":
+        run = False
+
+    else:
+        print("Switch# Command not recognized")
