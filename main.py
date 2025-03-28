@@ -57,9 +57,11 @@ with open(exercises_file, "r") as f:
 
 # Main loop
 run = True
+prefix = "Switch#"
+
 while run:
 
-    command = input("Switch# ").split(" ")
+    command = input(f"{prefix} ").split(" ")
 
     if command[0] == "show":
         available_stations_list = command[1:]
@@ -80,5 +82,8 @@ while run:
     elif command[0] == "shutdown":
         run = False
 
+    elif command[0] == "":
+        pass
+
     else:
-        print("Switch# Command not recognized")
+        print(f"{prefix} Command not recognized")
