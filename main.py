@@ -13,9 +13,12 @@ exercises_file = "exercises.txt"
 
 pattern = r"\b\d{3}\b"
 
+# All exercises from provided website
 all_exercises = []
+# Only exercises matching the numbers provided in exercises.txt
 chosen_exercises = []
 
+# Dummy exercise
 curr_ex_number = "000"
 curr_ex_description = ""
 curr_ex_stations = []
@@ -73,11 +76,11 @@ while run:
 
     elif command[0] == "add":
         exercises_to_add = command[1:]
-        Commands.add_command(exercises_file, exercises_to_add)
+        chosen_exercises = Commands.add_command(exercises_file, exercises_to_add)
 
     elif command[0] == "no" and command[1] == "add":
         exercises_to_remove = command[2:]
-        Commands.no_add_command(exercises_file, exercises_to_remove)
+        chosen_exercises = Commands.no_add_command(exercises_file, exercises_to_remove)
 
     elif command[0] == "shutdown":
         run = False

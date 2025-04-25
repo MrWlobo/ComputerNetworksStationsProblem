@@ -33,6 +33,8 @@ class Commands:
         with open(exercises_file, "w") as f:
             f.writelines(current_exercises)
 
+        return [number.strip() for number in current_exercises]
+
     # Remove chosen exercises from the list
     @classmethod
     def no_add_command(cls, exercises_file, exercises_to_remove):
@@ -43,3 +45,5 @@ class Commands:
 
         with open(exercises_file, "w") as f:
             f.writelines(updated_exercises)
+
+        return [number.strip() for number in updated_exercises]
