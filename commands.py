@@ -5,7 +5,7 @@ class Commands:
     def show_command(cls, all_exercises, chosen_exercises, available_stations_list):
         exercises_count = 0
         for exercise in all_exercises:
-            if exercise.number in chosen_exercises and exercise.station_match(available_stations_list):
+            if exercise.number in chosen_exercises and (exercise.station_match(available_stations_list) or len(available_stations_list) == 0):
                 print(exercise)
                 exercises_count += 1
         print(f"Dostępnych ćwiczeń: {exercises_count}\n")
@@ -15,7 +15,7 @@ class Commands:
     def no_show_command(cls, all_exercises, chosen_exercises, available_stations_list):
         exercises_count = 0
         for exercise in all_exercises:
-            if exercise.number in chosen_exercises and not exercise.station_match(available_stations_list):
+            if exercise.number in chosen_exercises and not (exercise.station_match(available_stations_list) or len(available_stations_list) == 0):
                 print(exercise)
                 exercises_count += 1
         print(f"Dostępnych ćwiczeń: {exercises_count}\n")
