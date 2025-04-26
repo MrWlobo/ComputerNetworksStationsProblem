@@ -1,8 +1,11 @@
 class Commands:
 
+    _headers = "      1  2  3  4  5  6  7  8  9  10"
+
     # Filter exercises according to provided available stations
     @classmethod
     def _filter_and_print(cls, all_exercises, chosen_exercises, available_stations_list, should_match):
+        print(cls._headers)
         exercises_count = 0
         for exercise in all_exercises:
             if exercise.number in chosen_exercises:
